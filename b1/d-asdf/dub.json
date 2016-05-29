@@ -1,0 +1,10 @@
+{
+	"name": "filter",
+	"description": "demo project to show the strengths of asdf",
+	"copyright": "Copyright © 2016, Yannick Koechlin",
+	"authors": ["Yannick Koechlin"],
+	"dependencies": {
+		"asdf": {"version": "~>0.0.4"}
+	},
+	"subConfigurations": { "asdf": "native-sse42" }
+}

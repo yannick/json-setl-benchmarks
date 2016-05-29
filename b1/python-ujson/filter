@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+import sys
+import ujson as json
+
+
+for line in sys.stdin:
+	j = json.loads(line)
+	d = {
+		"name": j["name"],
+		"url": j["homepage_url"],
+		"mail": j["email_address"],
+		"createdAt": j["created_at"] 
+	}
+	print(json.dumps(d))
