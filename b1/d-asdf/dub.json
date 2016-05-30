@@ -2,9 +2,19 @@
 	"name": "filter",
 	"description": "demo project to show the strengths of asdf",
 	"copyright": "Copyright © 2016, Yannick Koechlin",
-	"authors": ["Yannick Koechlin"],
+	"authors": ["Yannick Koechlin", "Ilya Yaroshenko"],
+	"targetType":"executable",
 	"dependencies": {
-		"asdf": {"version": "~>0.0.4"}
+		"asdf": {"path": "../../../asdf"}
 	},
-	"subConfigurations": { "asdf": "native-sse42" }
+	"configurations": [
+		{
+			"name":"generic"
+		},
+		{
+			"name": "native-sse42",
+			"versions-ldc": ["SSE42"],
+			"dflags-ldc": ["-mcpu=native"]
+		}
+	]
 }

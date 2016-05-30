@@ -1,14 +1,16 @@
 import std.stdio;
 import std.algorithm;
 import asdf;
-import asdf.serialization;
 import std.conv;
 import std.datetime;
+
 
 struct Company
 {
 	size_t ts;
-	@serializationEscaped
+
+	@serializationScoped:
+
 	string name;
 	@serializationKeysIn("homepage_url")
 	string url;
@@ -17,25 +19,29 @@ struct Company
 
 	@serializationKeysIn("created_at")
 	string createdAt;
-
-
 }
+
 void main()
 {
-		
-	foreach(ref line; stdin.byChunk(4096).parseJsonByLine(4096))
+	size_t fails;
+	foreach(ref line; 
+		stdin
+			.byChunk(4096 * 8)
+			.parseJsonByLine(4096)
+			.filter!(a => a.data.length))
 	{
-		try{
-
-
-		Company c = line.deserialize!Company;
-
-		writeln(c.serializeToJson());
-		} catch(Exception e)
+		try
 		{
-			 //writeln(e);
+			Company company = line.deserialize!Company;
+			auto ser = jsonSerializer(a => write(a));
+			ser.serializeValue(company);
+			ser.flush;
+			writeln;
+		}
+		catch(Exception e)
+		{
+			fails++;
 		}
 	}
+	//writeln(fails);
 }
-
-     

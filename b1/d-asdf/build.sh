@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-dub build --compiler=ldc2 -b release-nobounds
+dub build --compiler=ldmd2 --combined --build=release-nobounds --force --config=native-sse42
